@@ -45,7 +45,7 @@ public class WebController {
 
     @GetMapping("/videocollection")
     public ModelAndView videoCollection() throws IOException {
-        Map<String, Object> model = new HashMap<String, Object>();
+        Map<String, Object> model = new HashMap<>();
         String viewName = "videocollection";
         VideoLibrary library = new VideoLibrary();
         Collection<Video> videos = library.getFiles(DASH_PATH, SUFFIX);
@@ -55,4 +55,11 @@ public class WebController {
         return new ModelAndView(viewName, model);
     }
 
+    @GetMapping("/player/{folder}/{file}")
+    public ModelAndView player(@PathVariable("file") String file, @PathVariable("folder") String folder) throws IOException {
+        Map<String, Object> model = new HashMap<>();
+        String viewName = "player";
+        model.put("address", folder + "/" + file);
+        return new ModelAndView(viewName, model);
+    }
 }
